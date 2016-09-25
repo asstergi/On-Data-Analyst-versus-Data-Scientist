@@ -110,6 +110,7 @@ if __name__ == "__main__":
         counter += 1
         print counter
         
+        while next_button!='':
             article_texts, next_button = parsePage(next_button, article_texts)
             counter += 1
             print counter
