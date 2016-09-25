@@ -1,6 +1,6 @@
 library(wordcloud)
 
-data = read.csv("PMIs.csv")
+data = read.csv("PMIs for data_analyst & data_scientist.csv")
 
 higher = data[,2]>data[,3]
 colours = rep('#0878FD', length(higher))

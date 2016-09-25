@@ -97,30 +97,30 @@ def parsePage(page_url, article_texts):
     except:
         return article_texts, ''
 
-subreddits = ['datamining', 'statistics', 'datascience', 'machinelearning', 'dataanalysis']
-
-for subreddit in subreddits:
-    print "Download data from " + subreddit + " subreddit"
-    article_texts = []
-    counter = 0
-        
-    init_url = 'https://www.reddit.com/r/' + subreddit + '/?count=1'
-    article_texts, next_button = parsePage(init_url, article_texts)
-    counter += 1
-    print counter
+if __name__ == "__main__":
+    subreddits = ['datamining', 'statistics', 'datascience', 'machinelearning', 'dataanalysis']
     
-    while next_button!='':
-        article_texts, next_button = parsePage(next_button, article_texts)
+    for subreddit in subreddits:
+        print "Download data from " + subreddit + " subreddit"
+        article_texts = []
+        counter = 0
+            
+        init_url = 'https://www.reddit.com/r/' + subreddit + '/?count=1'
+        article_texts, next_button = parsePage(init_url, article_texts)
         counter += 1
         print counter
         
-        if counter%5 == 0:
-            article_texts = list(set(article_texts))
-            article_texts_df = pd.DataFrame(article_texts)
-            print "Number of comments so far is " + str(article_texts_df.shape[0])
-            article_texts_df.to_csv('reddit.com-' + subreddit + '.csv', index=False, header=False)
+            article_texts, next_button = parsePage(next_button, article_texts)
+            counter += 1
+            print counter
             
-    article_texts = list(set(article_texts))
-    article_texts_df = pd.DataFrame(article_texts)
-    print "Number of comments so far is " + str(article_texts_df.shape[0])
-    article_texts_df.to_csv('reddit.com-' + subreddit + '.csv', index=False, header=False)
+            if counter%5 == 0:
+                article_texts = list(set(article_texts))
+                article_texts_df = pd.DataFrame(article_texts)
+                print "Number of comments so far is " + str(article_texts_df.shape[0])
+                article_texts_df.to_csv('reddit.com-' + subreddit + '.csv', index=False, header=False)
+                
+        article_texts = list(set(article_texts))
+        article_texts_df = pd.DataFrame(article_texts)
+        print "Number of comments so far is " + str(article_texts_df.shape[0])
+        article_texts_df.to_csv('reddit.com-' + subreddit + '.csv', index=False, header=False)
