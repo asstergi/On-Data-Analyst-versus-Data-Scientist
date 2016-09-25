@@ -14,12 +14,10 @@ def parseDatafileLine(text):
     """ 
     Parse a line of the data file by tokenizing each sentence and creating unigrams and bigrams exluding stopwords
     """
-    
     sentences = sent_tokenize(text.lower())
     tokenized = [[i for i in wordpunct_tokenize(sentence) if i not in string.punctuation] for sentence in sentences]
-    unigrams = [i for sentence in tokenized for i in sentence if i not in stop_words.value and len(i)>1]
     
-    #bigrams = (['_'.join(i) for sentence in sentences for i in zip(tokenized, tokenized[1:])])
+    unigrams = [i for sentence in tokenized for i in sentence if i not in stop_words.value and len(i)>1]    
     bigrams = [a+'_'+b for sentence in tokenized for a, b in zip(sentence, sentence[1:]) if a not in stop_words.value and b not in stop_words.value and len(a)>1 and len(b)>1]
     
     unigrams.extend(bigrams)
